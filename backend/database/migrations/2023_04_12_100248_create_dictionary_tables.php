@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+
             $table->integer('parent_id')
                 ->unsigned();
+
             $table->string('slug', 255)
                 ->index();
             $table->string('name', 255);
@@ -22,34 +24,43 @@ return new class extends Migration
                 ->nullable();
             $table->text('description')
                 ->nullable();
+
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('parent_id')
                 ->references('id')
                 ->on('categories')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+
+            $table->softDeletes();
         });
 
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
+
             $table->string('name', 255);
             $table->string('color', 255);
+
             $table->timestamps();
         });
 
         Schema::create('carriage_types', function (Blueprint $table) {
             $table->id();
+
             $table->string('name', 255);
+
             $table->timestamps();
         });
 
         Schema::create('carriage_series', function (Blueprint $table) {
             $table->id();
+
             $table->integer('type_id')
                 ->unsigned();
+
             $table->string('name', 255);
+
             $table->timestamps();
 
             $table->foreign('type_id')

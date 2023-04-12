@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+
             $table->integer('status_id')
                 ->unsigned();
+
             $table->string('article', 255);
             $table->string('name', 255);
             $table->string('image', 255)
@@ -24,6 +26,7 @@ return new class extends Migration
                 ->nullable();
             $table->boolean('is_spare_part')
                 ->default(false);
+
             $table->timestamps();
 
             $table->foreign('status_id')
@@ -101,6 +104,8 @@ return new class extends Migration
             $table->integer('series_id')
                 ->unsigned();
 
+            $table->integer('quantity');
+
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
@@ -111,14 +116,16 @@ return new class extends Migration
                 ->on('carriage_series')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->integer('quantity');
+
             $table->unique(['product_id', 'series_id']);
         });
 
         Schema::create('product_details', function (Blueprint $table) {
             $table->id();
+
             $table->integer('product_id')
                 ->unsigned();
+
             $table->string('okp', 255)
                 ->nullable();
             $table->string('reference_document', 255)
@@ -129,6 +136,7 @@ return new class extends Migration
                 ->nullable();
             $table->double('average_failure_time')
                 ->nullable();
+
             $table->timestamps();
 
             $table->foreign('product_id')
@@ -142,12 +150,15 @@ return new class extends Migration
 
         Schema::create('product_additional_fields', function (Blueprint $table) {
             $table->id();
+
             $table->integer('product_id')
                 ->unsigned();
+
             $table->string('name', 255)
                 ->nullable();
             $table->text('value');
             $table->integer('sort_order');
+
             $table->timestamps();
 
             $table->foreign('product_id')
@@ -161,9 +172,11 @@ return new class extends Migration
 
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+
             $table->string('file', 255);
             $table->string('name', 255);
             $table->string('type', 20);
+
             $table->timestamps();
         });
 
@@ -189,10 +202,12 @@ return new class extends Migration
 
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+
             $table->string('file', 255);
             $table->string('name', 255);
             $table->string('alt', 255)
                 ->nullable();
+
             $table->timestamps();
         });
 
@@ -212,6 +227,7 @@ return new class extends Migration
                 ->on('files')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+
             $table->unique(['product_id', 'file_id']);
         });
     }
