@@ -17,14 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property float|null $average_failure_time
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail query()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail whereAverageFailureTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail whereDimension($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetail whereOkp($value)

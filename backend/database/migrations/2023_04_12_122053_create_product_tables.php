@@ -144,8 +144,6 @@ return new class extends Migration
                 ->on('products')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
-            $table->softDeletes();
         });
 
         Schema::create('product_additional_fields', function (Blueprint $table) {
@@ -166,8 +164,6 @@ return new class extends Migration
                 ->on('products')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
-            $table->softDeletes();
         });
 
         Schema::create('images', function (Blueprint $table) {
