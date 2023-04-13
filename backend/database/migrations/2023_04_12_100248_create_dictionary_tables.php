@@ -32,8 +32,6 @@ return new class extends Migration
                 ->on('categories')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
-            $table->softDeletes();
         });
 
         Schema::create('statuses', function (Blueprint $table) {

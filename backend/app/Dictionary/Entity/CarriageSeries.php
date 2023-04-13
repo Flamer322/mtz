@@ -3,6 +3,7 @@
 namespace App\Dictionary\Entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Dictionary\Entity\CarriageSeries
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Dictionary\Entity\CarriageType $type
  * @method static \Illuminate\Database\Eloquent\Builder|CarriageSeries newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CarriageSeries newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CarriageSeries query()
@@ -24,4 +26,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CarriageSeries extends Model
 {
+    public $timestamps = true;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(CarriageType::class, 'type_id');
+    }
 }
