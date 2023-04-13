@@ -3,6 +3,7 @@
 namespace App\Claim\Entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Claim\Entity\ClaimFile
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $claim_id
  * @property string $file
  * @property string $name
+ * @property-read \App\Claim\Entity\Claim $claim
  * @method static \Illuminate\Database\Eloquent\Builder|ClaimFile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClaimFile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClaimFile query()
@@ -22,4 +24,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ClaimFile extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'file',
+        'name',
+    ];
+
+    public function claim(): BelongsTo
+    {
+        return $this->belongsTo(Claim::class, 'claim_id');
+    }
 }

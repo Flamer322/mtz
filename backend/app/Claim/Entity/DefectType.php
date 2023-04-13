@@ -18,4 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DefectType extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'name',
+    ];
 }

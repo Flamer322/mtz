@@ -2,32 +2,42 @@
 
 namespace App\Claim\Entity;
 
+use App\Dictionary\Entity\CarriageSeries;
+use App\Dictionary\Entity\CarriageType;
+use App\Product\Entity\Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Claim\Entity\Claim
  *
  * @property int $id
- * @property int $defect_type_id
- * @property int $carriage_type_id
- * @property int $carriage_series_id
- * @property int $product_id
- * @property int $product_node_id
- * @property int $claim_company_id
+ * @property int|null $defect_type_id
+ * @property int|null $carriage_type_id
+ * @property int|null $carriage_series_id
+ * @property int|null $product_id
+ * @property int|null $product_node_id
+ * @property int|null $claim_company_id
  * @property string $number
  * @property string $theme
  * @property string|null $address
- * @property string|null $discover_date
+ * @property \Illuminate\Support\Carbon|null $discover_date
  * @property string|null $kasant_number
  * @property string|null $carriage_number
  * @property string|null $manufacture_number
- * @property string|null $manufacture_product_date
+ * @property \Illuminate\Support\Carbon|null $manufacture_product_date
  * @property string|null $assembly_serial_number
- * @property string|null $manufacture_date
+ * @property \Illuminate\Support\Carbon|null $manufacture_date
  * @property string|null $time_to_failure
  * @property string|null $claimed_defect
  * @property string|null $identified_defect
  * @property string|null $comment
+ * @property-read CarriageType|null $carriageType
+ * @property-read \App\Claim\Entity\ClaimCompany|null $company
+ * @property-read \App\Claim\Entity\DefectType|null $defectType
+ * @property-read \App\Claim\Entity\ProductNode|null $node
+ * @property-read Product|null $product
+ * @property-read CarriageSeries|null $series
  * @method static \Illuminate\Database\Eloquent\Builder|Claim newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Claim newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Claim query()
@@ -56,4 +66,58 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Claim extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'number',
+        'theme',
+        'address',
+        'discover_date',
+        'kasant_number',
+        'carriage_number',
+        'manufacture_number',
+        'manufacture_product_date',
+        'assembly_serial_number',
+        'manufacture_date',
+        'time_to_failure',
+        'claimed_defect',
+        'identified_defect',
+        'comment',
+    ];
+
+    protected $casts = [
+        'discover_date' => 'datetime',
+        'manufacture_product_date' => 'datetime',
+        'manufacture_date' => 'datetime',
+    ];
+
+    public function defectType(): ?BelongsTo
+    {
+        return $this->belongsTo(DefectType::class, 'defect_type_id');
+    }
+
+    public function carriageType(): ?BelongsTo
+    {
+        return $this->belongsTo(CarriageType::class, 'carriage_type_id');
+    }
+
+    public function series(): ?BelongsTo
+    {
+        return $this->belongsTo(CarriageSeries::class, 'carriage_series_id');
+    }
+
+    public function product(): ?BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function node(): ?BelongsTo
+    {
+        return $this->belongsTo(ProductNode::class, 'product_node_id');
+    }
+
+    public function company(): ?BelongsTo
+    {
+        return $this->belongsTo(ClaimCompany::class, 'claim_company_id');
+    }
 }

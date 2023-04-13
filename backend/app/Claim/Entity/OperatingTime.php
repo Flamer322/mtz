@@ -2,7 +2,9 @@
 
 namespace App\Claim\Entity;
 
+use App\Dictionary\Entity\CarriageSeries;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Claim\Entity\OperatingTime
@@ -12,8 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $mileage
  * @property string $unit
  * @property int $count_carriage
- * @property string $date
+ * @property \Illuminate\Support\Carbon $date
  * @property string|null $note
+ * @property-read CarriageSeries $series
  * @method static \Illuminate\Database\Eloquent\Builder|OperatingTime newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OperatingTime newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OperatingTime query()
@@ -28,4 +31,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OperatingTime extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'mileage',
+        'unit',
+        'count_carriage',
+        'date',
+        'note',
+    ];
+
+    protected $casts = [
+        'date' => 'datetime'
+    ];
+
+    public function series(): BelongsTo
+    {
+        return $this->belongsTo(CarriageSeries::class, 'carriage_series_id');
+    }
 }

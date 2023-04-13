@@ -20,4 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ClaimCompany extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'short_name',
+        'full_name',
+    ];
 }

@@ -63,17 +63,23 @@ return new class extends Migration
             $table->id();
 
             $table->integer('defect_type_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('carriage_type_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('carriage_series_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('product_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('product_node_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('claim_company_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
 
             $table->string('number', 255);
             $table->string('theme', 255);
