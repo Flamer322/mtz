@@ -2,7 +2,14 @@
 
 namespace App\Product\Entity;
 
+use App\Dictionary\Entity\CarriageSeries;
+use App\Dictionary\Entity\Category;
+use App\Dictionary\Entity\Status;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -19,6 +26,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Category> $categories
+ * @property-read int|null $categories_count
+ * @property-read \App\Product\Entity\ProductDetail|null $detail
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Product\Entity\ProductAdditionalField> $fields
+ * @property-read int|null $fields_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Product\Entity\Image> $files
+ * @property-read int|null $files_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Product\Entity\Image> $images
+ * @property-read int|null $images_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Product\Entity\Image> $modifications
+ * @property-read int|null $modifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CarriageSeries> $series
+ * @property-read int|null $series_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Product\Entity\Image> $spareParts
+ * @property-read int|null $spare_parts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Product\Entity\Image> $sparePartsReverse
+ * @property-read int|null $spare_parts_reverse_count
+ * @property-read Status $status
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product onlyTrashed()
@@ -41,4 +66,65 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use SoftDeletes;
+
+    public $timestamps = true;
+
+    protected $fillable = [
+        'article',
+        'name',
+        'image',
+        'description',
+        'note',
+        'is_spare_part',
+    ];
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
+
+    public function series(): BelongsToMany
+    {
+        return $this->belongsToMany(CarriageSeries::class,'product_series', 'product_id', 'series_id');
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class,'product_categories', 'product_id', 'category_id');
+    }
+
+    public function images(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class,'product_images', 'product_id', 'image_id');
+    }
+
+    public function files(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class,'product_files', 'product_id', 'file_id');
+    }
+
+    public function fields(): HasMany
+    {
+        return $this->hasMany(ProductAdditionalField::class,'product_id');
+    }
+
+    public function detail(): HasOne
+    {
+        return $this->hasOne(ProductDetail::class,'product_id');
+    }
+
+    public function spareParts(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class,'product_spare_parts', 'product_id', 'spare_part_id');
+    }
+
+    public function sparePartsReverse(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class,'product_spare_parts', 'spare_part_id', 'product_id');
+    }
+
+    public function modifications(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class,'product_modifications', 'product_id', 'modification_id');
+    }
 }

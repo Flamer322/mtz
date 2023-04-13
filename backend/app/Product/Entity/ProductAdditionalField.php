@@ -3,6 +3,7 @@
 namespace App\Product\Entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Product\Entity\ProductAdditionalField
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $sort_order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Product\Entity\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAdditionalField newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAdditionalField newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductAdditionalField query()
@@ -28,4 +30,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductAdditionalField extends Model
 {
+    public $timestamps = true;
+
+    protected $fillable = [
+        'name',
+        'value',
+        'sort_order',
+    ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

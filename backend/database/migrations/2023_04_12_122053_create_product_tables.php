@@ -38,7 +38,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('product_spare_part', function (Blueprint $table) {
+        Schema::create('product_spare_parts', function (Blueprint $table) {
             $table->integer('product_id')
                 ->unsigned();
             $table->integer('spare_part_id')
@@ -137,8 +137,6 @@ return new class extends Migration
             $table->double('average_failure_time')
                 ->nullable();
 
-            $table->timestamps();
-
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
@@ -176,7 +174,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('product_image', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
             $table->integer('product_id')
                 ->unsigned();
             $table->integer('image_id')
@@ -207,7 +205,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('product_file', function (Blueprint $table) {
+        Schema::create('product_files', function (Blueprint $table) {
             $table->integer('product_id')
                 ->unsigned();
             $table->integer('file_id')
@@ -233,16 +231,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_file');
+        Schema::dropIfExists('product_files');
         Schema::dropIfExists('files');
-        Schema::dropIfExists('product_image');
+        Schema::dropIfExists('product_images');
         Schema::dropIfExists('images');
         Schema::dropIfExists('product_additional_fields');
         Schema::dropIfExists('product_details');
         Schema::dropIfExists('product_series');
         Schema::dropIfExists('product_categories');
         Schema::dropIfExists('product_modifications');
-        Schema::dropIfExists('product_spare_part');
+        Schema::dropIfExists('product_spare_parts');
         Schema::dropIfExists('products');
     }
 };
