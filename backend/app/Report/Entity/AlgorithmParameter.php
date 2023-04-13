@@ -22,4 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AlgorithmParameter extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'key',
+        'name',
+        'value',
+    ];
 }

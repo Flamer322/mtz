@@ -18,4 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SummaryReport extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'name',
+    ];
 }

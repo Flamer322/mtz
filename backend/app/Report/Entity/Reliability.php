@@ -2,7 +2,9 @@
 
 namespace App\Report\Entity;
 
+use App\Product\Entity\Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Report\Entity\Reliability
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $total_operating
  * @property float $point_rate
  * @property float $top_rate
+ * @property-read Product $type
  * @method static \Illuminate\Database\Eloquent\Builder|Reliability newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reliability newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reliability query()
@@ -26,4 +29,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Reliability extends Model
 {
+    public $timestamps = false;
+
+    protected $fillable = [
+        'failure_number',
+        'total_operating',
+        'point_rate',
+        'top_rate',
+    ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
