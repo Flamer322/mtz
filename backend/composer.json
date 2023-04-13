@@ -11,7 +11,8 @@
         "laravel/framework": "^10.0",
         "laravel/nova": "^4.23.0",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "spatie/data-transfer-object": "^3.9"
     },
     "repositories": [{
         "type": "composer",

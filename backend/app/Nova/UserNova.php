@@ -2,7 +2,7 @@
 
 namespace App\Nova;
 
-use App\Models\User;
+use App\User\Entity\User;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
