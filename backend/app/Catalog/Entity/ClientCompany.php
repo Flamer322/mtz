@@ -3,6 +3,7 @@
 namespace App\Catalog\Entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -27,9 +28,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $director_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Catalog\Entity\Client $client
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany query()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereBankAccount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereBankName($value)
@@ -51,7 +54,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany wherePostAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereShortName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany withoutTrashed()
  * @mixin \Eloquent
@@ -59,4 +61,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ClientCompany extends Model
 {
     use SoftDeletes;
+
+    public $timestamps = true;
+
+    protected $fillable = [
+        'legal_address',
+        'post_address',
+        'inn',
+        'okpo',
+        'kpp',
+        'ogrn',
+        'bik',
+        'corr_account',
+        'bank_account',
+        'main_organization',
+        'short_name',
+        'bank_name',
+        'director_post',
+        'director_name',
+    ];
+
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 }

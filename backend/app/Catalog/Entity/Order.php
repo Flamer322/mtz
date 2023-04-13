@@ -3,6 +3,8 @@
 namespace App\Catalog\Entity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -23,9 +25,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Catalog\Entity\ClientCompany $buyerCompany
+ * @property-read \App\Catalog\Entity\Client $client
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Catalog\Entity\OrderFile> $files
+ * @property-read int|null $files_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Catalog\Entity\OrderLine> $lines
+ * @property-read int|null $lines_count
+ * @property-read \App\Catalog\Entity\ClientCompany $payerCompany
+ * @property-read \App\Catalog\Entity\ClientCompany $recipientCompany
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereBuyerCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereClientId($value)
@@ -43,7 +54,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereRecipientCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Order withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Order withoutTrashed()
  * @mixin \Eloquent
@@ -51,4 +61,51 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use SoftDeletes;
+
+    public $timestamps = true;
+
+    protected $fillable = [
+        'contact_name',
+        'contact_phone',
+        'contact_email',
+        'document_type',
+        'comment',
+        'end_user_of_product',
+        'delivery_date',
+        'status',
+    ];
+
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function buyerCompany(): BelongsTo
+    {
+        return $this->belongsTo(ClientCompany::class, 'buyer_company_id');
+    }
+
+    public function payerCompany(): BelongsTo
+    {
+        return $this->belongsTo(ClientCompany::class, 'payer_company_id');
+    }
+
+    public function recipientCompany(): BelongsTo
+    {
+        return $this->belongsTo(ClientCompany::class, 'recipient_company_id');
+    }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(OrderFile::class, 'order_id');
+    }
+
+    public function lines(): HasMany
+    {
+        return $this->hasMany(OrderLine::class, 'order_id');
+    }
 }
