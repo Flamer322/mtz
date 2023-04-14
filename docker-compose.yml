@@ -1,6 +1,5 @@
 version: "3.8"
 services:
-
   backend-nginx:
     image: nginx:alpine
     volumes:
@@ -43,12 +42,6 @@ services:
       - mtz-postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
-  mailer:
-    image: cd2team/mailhog
-    ports:
-      - "8082:8025"
-      - "1025:1025"
 
 volumes:
   mtz-postgres:
