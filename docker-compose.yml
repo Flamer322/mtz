@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  backend-nginx:
+  nginx:
     image: nginx:alpine
     volumes:
       - ./backend:/app
@@ -8,9 +8,9 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - backend-php-fpm
+      - php-fpm
 
-  backend-php-fpm:
+  php-fpm:
     build:
       context: docker
       dockerfile: development/php-fpm/Dockerfile
@@ -18,10 +18,8 @@ services:
       - ./backend:/app
     depends_on:
       - database
-    links:
-      - mailer
 
-  backend-php-cli:
+  php-cli:
     build:
       context: docker
       dockerfile: development/php-cli/Dockerfile
@@ -29,8 +27,6 @@ services:
       - ./backend:/app
     depends_on:
       - database
-    links:
-      - mailer
 
   database:
     image: postgres:15-alpine
