@@ -68,7 +68,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('clients')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
 
             $table->softDeletes();
         });
@@ -108,22 +108,22 @@ return new class extends Migration
                 ->references('id')
                 ->on('clients')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('buyer_company_id')
                 ->references('id')
                 ->on('client_companies')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('payer_company_id')
                 ->references('id')
                 ->on('client_companies')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('recipient_company_id')
                 ->references('id')
                 ->on('client_companies')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
 
             $table->softDeletes();
         });

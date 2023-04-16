@@ -28,7 +28,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('carriage_series')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
         });
 
         Schema::create('defect_types', function (Blueprint $table) {
@@ -112,32 +112,32 @@ return new class extends Migration
                 ->references('id')
                 ->on('defect_types')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('carriage_type_id')
                 ->references('id')
                 ->on('carriage_types')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('carriage_series_id')
                 ->references('id')
                 ->on('carriage_series')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('product_node_id')
                 ->references('id')
                 ->on('product_nodes')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreign('claim_company_id')
                 ->references('id')
                 ->on('claim_companies')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
         });
 
         Schema::create('claim_files', function (Blueprint $table) {

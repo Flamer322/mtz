@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->integer('parent_id')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
 
             $table->string('slug', 255)
                 ->index();
@@ -31,7 +32,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('categories')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
         });
 
         Schema::create('statuses', function (Blueprint $table) {
@@ -65,7 +66,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('carriage_types')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
         });
     }
 

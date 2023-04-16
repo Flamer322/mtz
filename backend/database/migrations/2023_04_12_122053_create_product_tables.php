@@ -33,7 +33,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('statuses')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
 
             $table->softDeletes();
         });
