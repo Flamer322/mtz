@@ -2,9 +2,9 @@
 
 namespace App\User\Command\Create;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Data;
 
-final class Command extends DataTransferObject
+final class Command extends Data
 {
     public string $name;
     public string $email;

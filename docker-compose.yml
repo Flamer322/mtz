@@ -18,6 +18,7 @@ services:
       - ./backend:/app
     depends_on:
       - database
+      - storage
 
   php-cli:
     build:
@@ -27,6 +28,7 @@ services:
       - ./backend:/app
     depends_on:
       - database
+      - storage
 
   database:
     image: postgres:15-alpine
@@ -39,5 +41,18 @@ services:
     ports:
       - "5432:5432"
 
+  storage:
+    image: minio/minio
+    entrypoint: sh -c 'mkdir -p /data/mtz && docker-entrypoint.sh minio server /data --console-address ":9001"'
+    volumes:
+      - mtz-storage:/data
+    environment:
+      MINIO_ROOT_USER: s3_mtz_usr
+      MINIO_ROOT_PASSWORD: s3_mtz_pass
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
 volumes:
   mtz-postgres:
+  mtz-storage:

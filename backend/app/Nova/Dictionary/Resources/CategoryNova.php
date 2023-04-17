@@ -4,7 +4,9 @@ namespace App\Nova\Dictionary\Resources;
 
 use App\Dictionary\Entity\Category;
 use App\Nova\Resource;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -34,6 +36,10 @@ class CategoryNova extends Resource
     {
         return [
             Fields\ID::make()->sortable(),
+
+            Images::make('Изображение', Category::MEDIA_COLLECTION)
+                ->conversionOnDetailView('preview')
+                ->temporary(Carbon::now()->addMinutes(10)),
 
             Fields\Text::make('Название', 'name')
                 ->sortable()
