@@ -46,11 +46,11 @@ class Category extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Status::class, 'parent_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function children(): HasMany
     {
-        return $this->hasMany(Status::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id');
     }
 }
