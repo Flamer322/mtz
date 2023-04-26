@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * App\Product\Entity\Product
@@ -63,16 +67,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Product withoutTrashed()
  * @mixin \Eloquent
  */
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes, InteractsWithMedia;
+
+    public const MEDIA_COLLECTION = 'product.images';
 
     public $timestamps = true;
 
     protected $fillable = [
         'article',
         'name',
-        'image',
         'description',
         'note',
         'is_spare_part',
@@ -105,7 +110,8 @@ class Product extends Model
 
     public function fields(): HasMany
     {
-        return $this->hasMany(ProductAdditionalField::class,'product_id');
+        return $this->hasMany(ProductAdditionalField::class,'product_id')
+            ->orderBy('sort_order', 'asc');
     }
 
     public function detail(): HasOne
@@ -126,5 +132,19 @@ class Product extends Model
     public function modifications(): BelongsToMany
     {
         return $this->belongsToMany(Image::class,'product_modifications', 'product_id', 'modification_id');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection(self::MEDIA_COLLECTION)
+            ->singleFile();
     }
 }

@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('image', 255)
                 ->nullable();
-            $table->text('description');
+            $table->text('description')
+                ->nullable();
             $table->string('note', 255)
                 ->nullable();
             $table->boolean('is_spare_part')
@@ -150,8 +151,7 @@ return new class extends Migration
             $table->integer('product_id')
                 ->unsigned();
 
-            $table->string('name', 255)
-                ->nullable();
+            $table->string('name', 255);
             $table->text('value');
             $table->integer('sort_order');
 

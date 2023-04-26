@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int $id
  * @property int $product_id
- * @property string|null $name
+ * @property string $name
  * @property string $value
  * @property int $sort_order
  * @property \Illuminate\Support\Carbon|null $created_at

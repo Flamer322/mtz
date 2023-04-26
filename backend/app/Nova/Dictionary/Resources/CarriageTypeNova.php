@@ -32,7 +32,8 @@ class CarriageTypeNova extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            Fields\ID::make()->sortable(),
+            Fields\ID::make()
+                ->sortable(),
 
             Fields\Text::make('Название', 'name')
                 ->sortable()

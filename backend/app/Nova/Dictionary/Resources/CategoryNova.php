@@ -35,7 +35,8 @@ class CategoryNova extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            Fields\ID::make()->sortable(),
+            Fields\ID::make()
+                ->sortable(),
 
             Images::make('Изображение', Category::MEDIA_COLLECTION)
                 ->conversionOnDetailView('preview')
