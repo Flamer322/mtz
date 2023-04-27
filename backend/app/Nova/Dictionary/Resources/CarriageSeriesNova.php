@@ -39,8 +39,8 @@ class CarriageSeriesNova extends Resource
                 ->rules('required'),
 
             Fields\Text::make('Название', 'name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')
+                ->sortable(),
         ];
     }
 }

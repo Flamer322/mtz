@@ -36,8 +36,8 @@ class StatusNova extends Resource
                 ->sortable(),
 
             Fields\Text::make('Название', 'name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')
+                ->sortable(),
 
             Fields\Color::make('Цвет', 'color')
                 ->rules('required'),

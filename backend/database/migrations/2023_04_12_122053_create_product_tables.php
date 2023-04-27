@@ -167,9 +167,9 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
 
-            $table->string('file', 255);
             $table->string('name', 255);
-            $table->string('type', 20);
+            $table->string('alt', 255)
+                ->nullable();
 
             $table->timestamps();
         });
@@ -197,10 +197,8 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
 
-            $table->string('file', 255);
             $table->string('name', 255);
-            $table->string('alt', 255)
-                ->nullable();
+            $table->string('type', 20);
 
             $table->timestamps();
         });

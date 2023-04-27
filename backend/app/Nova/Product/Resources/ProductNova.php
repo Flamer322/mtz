@@ -30,7 +30,7 @@ class ProductNova extends Resource
 
     public static function singularLabel()
     {
-        return 'Продукт';
+        return 'Изделие';
     }
 
     public static $search = [
@@ -42,7 +42,8 @@ class ProductNova extends Resource
         return [
             Tabs\Tabs::make('Some Title', [
                 Tabs\Tab::make('Основная информация', [
-                    Fields\ID::make()->sortable(),
+                    Fields\ID::make()
+                        ->sortable(),
 
                     Images::make('Изображение', Product::MEDIA_COLLECTION)
                         ->conversionOnDetailView('preview')
@@ -75,12 +76,8 @@ class ProductNova extends Resource
 
                 Fields\HasOne::make('Детальная информация', 'detail', ProductDetailNova::class),
                 Fields\HasMany::make('Дополнительные поля', 'fields', ProductAdditionalFieldNova::class),
+                Fields\BelongsToMany::make('Изображения', 'images', ImageNova::class),
             ]),
         ];
-    }
-
-    public function authorizedToReplicate(Request $request)
-    {
-        return false;
     }
 }

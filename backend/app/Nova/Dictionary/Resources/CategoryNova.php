@@ -43,8 +43,8 @@ class CategoryNova extends Resource
                 ->temporary(Carbon::now()->addMinutes(10)),
 
             Fields\Text::make('Название', 'name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')
+                ->sortable(),
 
             Fields\Text::make('Cлаг', 'slug')
                 ->rules('required', 'max:255'),
