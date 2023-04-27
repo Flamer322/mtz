@@ -9,8 +9,7 @@ RUN apk add --no-cache postgresql-dev bash coreutils git unzip python3 py3-pip n
     && docker-php-ext-install pdo_pgsql xdebug \
     && docker-php-ext-install exif \
     && docker-php-ext-install gd \
-    && docker-php-ext-install zip \
-    && apk del git
+    && docker-php-ext-install zip
 
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 

@@ -2,13 +2,13 @@
 
 namespace App\Nova\Product\Resources;
 
+use App\Nova\Dictionary\Resources\CategoryNova;
 use App\Nova\Dictionary\Resources\StatusNova;
 use App\Nova\Resource;
 use App\Product\Entity\Product;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Traits\HasTabs;
 use Eminiarts\Tabs;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -40,7 +40,7 @@ class ProductNova extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            Tabs\Tabs::make('Some Title', [
+            Tabs\Tabs::make('Изделие', [
                 Tabs\Tab::make('Основная информация', [
                     Fields\ID::make()
                         ->sortable(),
@@ -72,12 +72,16 @@ class ProductNova extends Resource
                     Fields\DateTime::make('Обновлено', 'updated_at')
                         ->hideWhenCreating()
                         ->hideWhenUpdating(),
+
+                    Fields\BelongsToMany::make('Категории', 'categories', CategoryNova::class)
+                        ->asPanel(),
                 ]),
 
                 Fields\HasOne::make('Детальная информация', 'detail', ProductDetailNova::class),
                 Fields\HasMany::make('Дополнительные поля', 'fields', ProductAdditionalFieldNova::class),
                 Fields\BelongsToMany::make('Изображения', 'images', ImageNova::class),
-            ]),
+                Fields\BelongsToMany::make('Файлы', 'files', FileNova::class),
+            ])->withToolbar(),
         ];
     }
 }

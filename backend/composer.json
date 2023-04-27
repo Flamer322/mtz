@@ -17,10 +17,12 @@
         "league/flysystem-aws-s3-v3": "^3.13",
         "spatie/laravel-data": "^3.4"
     },
-    "repositories": [{
-        "type": "composer",
-        "url": "https://laravel-nova.site"
-    }],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://laravel-nova.site"
+        }
+    ],
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.9.1",
