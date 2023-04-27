@@ -47,12 +47,21 @@ class CategoryNova extends Resource
                 ->sortable(),
 
             Fields\Text::make('Cлаг', 'slug')
-                ->rules('required', 'max:255'),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             Fields\BelongsTo::make('Родительская категория', 'parent', CategoryNova::class)
                 ->nullable(),
 
             Fields\Textarea::make('Описание', 'description'),
+
+            Fields\DateTime::make('Создано', 'created_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            Fields\DateTime::make('Обновлено', 'updated_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
         ];
     }
 

@@ -9,6 +9,8 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 /**
  * App\Dictionary\Entity\Category
@@ -39,7 +41,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class Category extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, HasSlug;
 
     public const MEDIA_COLLECTION = 'category.images';
 
@@ -73,5 +75,12 @@ class Category extends Model implements HasMedia
     {
         $this->addMediaCollection(self::MEDIA_COLLECTION)
             ->singleFile();
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }
