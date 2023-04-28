@@ -56,8 +56,12 @@ class ProductNova extends Resource
                             'unique:products,article,' . $request->route('resourceId') . ',id,deleted_at,NULL'),
 
                     Fields\Text::make('Наименование', 'name')
-                        ->sortable()
-                        ->rules('required', 'max:255'),
+                        ->rules('required', 'max:255')
+                        ->sortable(),
+
+                    Fields\Text::make('Cлаг', 'slug')
+                        ->hideWhenCreating()
+                        ->hideWhenUpdating(),
 
                     Fields\BelongsTo::make('Статус', 'status', StatusNova::class),
 
@@ -81,6 +85,8 @@ class ProductNova extends Resource
                 Fields\HasMany::make('Дополнительные поля', 'fields', ProductAdditionalFieldNova::class),
                 Fields\BelongsToMany::make('Изображения', 'images', ImageNova::class),
                 Fields\BelongsToMany::make('Файлы', 'files', FileNova::class),
+                Fields\BelongsToMany::make('Запасные части', 'spare_parts', ProductNova::class),
+                Fields\BelongsToMany::make('Аналоги', 'modifications', ProductNova::class),
             ])->withToolbar(),
         ];
     }

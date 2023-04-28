@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->string('article', 255);
             $table->string('name', 255);
+            $table->string('slug', 255);
             $table->string('image', 255)
                 ->nullable();
             $table->text('description')
