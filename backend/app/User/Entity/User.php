@@ -53,4 +53,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public const USER_ROLES = [
+        'admin' => 'Администратор',
+        'oivt' => 'ОИВТ',
+        'odiz' => 'ОДИЗ',
+        'skbt' => 'СКБТ',
+    ];
 }

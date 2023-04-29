@@ -50,10 +50,10 @@ class ProductNova extends Resource
                         ->temporary(Carbon::now()->addMinutes(10)),
 
                     Fields\Text::make('Индекс', 'article')
-                        ->sortable()
-                        ->creationRules('max:255', 'required', 'unique:products,article,NULL,id,deleted_at,NULL')
-                        ->updateRules('max:255', 'required',
-                            'unique:products,article,' . $request->route('resourceId') . ',id,deleted_at,NULL'),
+                        ->rules('max:255', 'required')
+                        ->creationRules('unique:products,article,NULL,id,deleted_at,NULL')
+                        ->updateRules('unique:products,article,{{resourceId}},id,deleted_at,NULL')
+                        ->sortable(),
 
                     Fields\Text::make('Наименование', 'name')
                         ->rules('required', 'max:255')
