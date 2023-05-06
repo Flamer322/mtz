@@ -4,9 +4,7 @@ namespace App\Nova\Product\Resources;
 
 use App\Nova\Resource;
 use App\Product\Entity\File;
-use App\Product\Entity\Image;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Traits\HasTabs;
 use Eminiarts\Tabs;
 use Illuminate\Support\Carbon;
