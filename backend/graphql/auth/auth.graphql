@@ -1,0 +1,29 @@
+extend type Mutation {
+    signIn(input: SignInInput): SignInPayload @field(resolver: "Auth\\SignInMutation")
+    signUp(input: SignUpInput): SignUpPayload @field(resolver: "Auth\\SignUpMutation")
+    logout: LogoutPayload @field(resolver: "Auth\\LogoutMutation") @guard
+}
+
+input SignInInput @validator(class: "Auth\\SignInValidator") {
+    email: String!
+    password: String!
+}
+
+input SignUpInput @validator(class: "Auth\\SignUpValidator") {
+    name: String!
+    email: String!
+    password: String!
+    phone: String!
+}
+
+type SignInPayload {
+    success: Boolean
+}
+
+type SignUpPayload {
+    success: Boolean
+}
+
+type LogoutPayload {
+    success: Boolean
+}

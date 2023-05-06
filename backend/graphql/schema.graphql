@@ -1,0 +1,17 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
+type Query {
+    info: InfoPayload @field(resolver: "Info\\InfoQuery")
+}
+
+type InfoPayload {
+    version: String
+}
+
+#import auth/*.graphql
+#import user/*.graphql

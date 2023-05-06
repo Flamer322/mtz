@@ -27,6 +27,7 @@ final class UserCreateCommand extends Command
         $data['name'] = $this->ask('Name:');
         $data['email'] = $this->ask('Email:');
         $data['password'] = $this->secret('Password:');
+        $data['phone'] = $this->ask('Phone:');
         $data['role'] = $this->ask('Role:');
 
         try {
@@ -37,7 +38,7 @@ final class UserCreateCommand extends Command
                 return self::INVALID;
             }
 
-            $handler->handle(new Create\Command($data));
+            $handler->handle(Create\Command::from($data));
 
             $this->info('Пользователь успешно создан');
 

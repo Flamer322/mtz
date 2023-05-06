@@ -5,6 +5,8 @@ namespace App\User\Entity;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * App\User\Entity\User
@@ -12,8 +14,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $id
  * @property string $name
  * @property string $email
- * @property string $role
  * @property string $password
+ * @property $phone
+ * @property string $role
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -29,19 +32,27 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, Notifiable;
+
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_OIVT = 'oivt';
+    public const ROLE_ODIZ = 'odiz';
+    public const ROLE_SKBT = 'skbt';
+    public const ROLE_CLIENT = 'client';
 
     protected $fillable = [
         'name',
         'email',
         'password',
+        'phone',
         'role',
     ];
 
@@ -52,12 +63,27 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone' => E164PhoneNumberCast::class . ':RU',
     ];
 
     public const USER_ROLES = [
-        'admin' => 'Администратор',
-        'oivt' => 'ОИВТ',
-        'odiz' => 'ОДИЗ',
-        'skbt' => 'СКБТ',
+        self::ROLE_ADMIN => 'Администратор',
+        self::ROLE_OIVT => 'ОИВТ',
+        self::ROLE_ODIZ => 'ОДИЗ',
+        self::ROLE_SKBT => 'СКБТ',
+        self::ROLE_CLIENT => 'Клиент'
     ];
+
+    public function getJWTIdentifier(): int
+    {
+        return $this->id;
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
+    }
 }

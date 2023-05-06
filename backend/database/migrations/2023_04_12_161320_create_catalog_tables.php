@@ -11,25 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('name', 255);
-            $table->string('email', 255)
-                ->unique();
-            $table->string('password');
-            $table->string('phone', 255)
-                ->nullable();
-            $table->timestamp('email_verified_at')
-                ->nullable();
-
-            $table->timestamps();
-        });
-
         Schema::create('client_companies', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('client_id')
+            $table->integer('user_id')
                 ->unsigned();
 
             $table->string('legal_name', 255);
@@ -64,9 +49,9 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('client_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('clients')
+                ->on('users')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
@@ -76,7 +61,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('client_id')
+            $table->integer('user_id')
                 ->unsigned();
             $table->integer('buyer_company_id')
                 ->unsigned();
@@ -104,9 +89,9 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('client_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('clients')
+                ->on('users')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->foreign('buyer_company_id')
@@ -179,6 +164,5 @@ return new class extends Migration
         Schema::dropIfExists('order_files');
         Schema::dropIfExists('orders');
         Schema::dropIfExists('client_companies');
-        Schema::dropIfExists('clients');
     }
 };

@@ -1,0 +1,10 @@
+extend type Query {
+    me: User! @guard @field(resolver: "App\\GraphQL\\Queries\\User\\UserQuery")
+}
+
+type User @model(class: "App\\User\\Entity\\User") {
+    id: Int!
+    name: String!
+    email: String!
+    phone: String!
+}

@@ -1,24 +1,20 @@
 <?php
 
-namespace App\User\Command\Create;
+declare(strict_types=1);
 
-use Spatie\LaravelData\Data;
+namespace App\GraphQL\Validators\Auth;
 
-final class Command extends Data
+use Nuwave\Lighthouse\Validation\Validator;
+
+final class SignUpValidator extends Validator
 {
-    public string $name;
-    public string $email;
-    public string $password;
-    public string $role;
-
-    public static function rules(): array
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max: 255'],
             'email' => ['required', 'email', 'unique:App\User\Entity\User,email', 'max:255'],
             'password' => ['required', 'min:6', 'max:255'],
             'phone' => ['required', 'phone:RU', 'max:255'],
-            'role' => ['required', 'string', 'max: 30'],
         ];
     }
 }

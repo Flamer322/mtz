@@ -2,6 +2,7 @@
 
 namespace App\Catalog\Entity;
 
+use App\User\Entity\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * App\Catalog\Entity\ClientCompany
  *
  * @property int $id
- * @property int $client_id
+ * @property int $user_id
  * @property string $legal_name
  * @property string|null $legal_address
  * @property string|null $post_address
@@ -29,7 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Catalog\Entity\Client $client
+ * @property-read User $user
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany onlyTrashed()
@@ -37,7 +38,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereBankAccount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereBankName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereBik($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereClientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereCorrAccount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereDeletedAt($value)
@@ -54,6 +54,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany wherePostAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereShortName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientCompany withoutTrashed()
  * @mixin \Eloquent
@@ -85,8 +86,8 @@ class ClientCompany extends Model
         'deleted_at' => 'datetime',
     ];
 
-    public function client(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

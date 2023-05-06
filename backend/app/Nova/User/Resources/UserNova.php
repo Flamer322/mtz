@@ -46,6 +46,9 @@ class UserNova extends Resource
                 ->updateRules('unique:users,email,{{resourceId}}')
                 ->sortable(),
 
+            Fields\Text::make('Номер телефона', 'phone')
+                ->rules('required', 'phone:RU', 'max:255'),
+
             Fields\Select::make('Роль', 'role')
                 ->options(User::USER_ROLES)
                 ->displayUsing(static fn ($role) => User::USER_ROLES[$role])

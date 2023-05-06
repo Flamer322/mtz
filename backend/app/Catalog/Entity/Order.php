@@ -2,6 +2,7 @@
 
 namespace App\Catalog\Entity;
 
+use App\User\Entity\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * App\Catalog\Entity\Order
  *
  * @property int $id
- * @property int $client_id
+ * @property int $user_id
  * @property int $buyer_company_id
  * @property int $payer_company_id
  * @property int $recipient_company_id
@@ -27,19 +28,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Catalog\Entity\ClientCompany $buyerCompany
- * @property-read \App\Catalog\Entity\Client $client
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Catalog\Entity\OrderFile> $files
  * @property-read int|null $files_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Catalog\Entity\OrderLine> $lines
  * @property-read int|null $lines_count
  * @property-read \App\Catalog\Entity\ClientCompany $payerCompany
  * @property-read \App\Catalog\Entity\ClientCompany $recipientCompany
+ * @property-read User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereBuyerCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereClientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereComment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactName($value)
@@ -54,6 +54,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereRecipientCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Order withoutTrashed()
  * @mixin \Eloquent
@@ -79,9 +80,9 @@ class Order extends Model
         'deleted_at' => 'datetime',
     ];
 
-    public function client(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function buyerCompany(): BelongsTo
