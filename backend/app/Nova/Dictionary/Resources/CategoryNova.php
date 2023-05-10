@@ -48,12 +48,14 @@ class CategoryNova extends Resource
 
             Fields\Text::make('Cлаг', 'slug')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
 
             Fields\BelongsTo::make('Родительская категория', 'parent', CategoryNova::class)
                 ->nullable(),
 
-            Fields\Textarea::make('Описание', 'description'),
+            Fields\Textarea::make('Описание', 'description')
+                ->alwaysShow(),
 
             Fields\DateTime::make('Создано', 'created_at')
                 ->hideWhenCreating()
