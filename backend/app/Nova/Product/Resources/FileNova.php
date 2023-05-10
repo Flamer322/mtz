@@ -43,7 +43,7 @@ class FileNova extends Resource
                     Fields\ID::make()->sortable(),
 
                     Fields\Text::make('Иконка', static fn (File $file)
-                        => '<img src="' . $file->getFileExtensionPreview() . '" width=50px>')
+                        => '<img src="' . $file->getFileExtensionPreview() . '" width=32px>')
                         ->asHtml()
                         ->hideWhenCreating()
                         ->hideWhenUpdating(),

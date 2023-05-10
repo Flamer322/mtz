@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator;
 class MediaCustomUrlGenerator extends DefaultUrlGenerator
 {
     public function __construct(
-        private UrlGenerator $urlGenerator,
+        private readonly UrlGenerator $urlGenerator,
         protected Config $config
     ) {
         parent::__construct($this->config);
