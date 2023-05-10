@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/storage/media/{name}', Media\FileAction::class)
     ->name('storage.media');
 
-Route::get('/storage/media/preview/{name}', Media\FilePreviewAction::class)
-    ->name('storage.media.preview');
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -46,7 +46,6 @@ class ProductNova extends Resource
                         ->sortable(),
 
                     Images::make('Изображение', Product::MEDIA_COLLECTION)
-                        ->conversionOnDetailView('preview')
                         ->temporary(Carbon::now()->addMinutes(10)),
 
                     Fields\Text::make('Индекс', 'article')

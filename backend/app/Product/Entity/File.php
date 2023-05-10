@@ -100,13 +100,11 @@ class File extends Model implements HasMedia
             return '';
         }
 
-        if (isset($file->generated_conversions['preview']) && $file->generated_conversions['preview']) {
+        if (in_array(pathinfo($file->file_name, PATHINFO_EXTENSION), self::FILE_FORMAT_PREVIEWS, false)) {
             return URL::temporarySignedRoute(
-                'storage.media.preview',
+                'storage.media',
                 Carbon::now()->addMinutes(10),
-                [
-                    'name' => $file->uuid
-                ]
+                ['name' => $file->uuid]
             );
         }
 

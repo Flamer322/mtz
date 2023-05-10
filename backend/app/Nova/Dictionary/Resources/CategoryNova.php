@@ -39,7 +39,6 @@ class CategoryNova extends Resource
                 ->sortable(),
 
             Images::make('Изображение', Category::MEDIA_COLLECTION)
-                ->conversionOnDetailView('preview')
                 ->temporary(Carbon::now()->addMinutes(10)),
 
             Fields\Text::make('Название', 'name')

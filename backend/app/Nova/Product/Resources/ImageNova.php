@@ -43,7 +43,6 @@ class ImageNova extends Resource
                     Fields\ID::make()->sortable(),
 
                     Images::make('Изображение', Image::MEDIA_COLLECTION)
-                        ->conversionOnDetailView('preview')
                         ->temporary(Carbon::now()->addMinutes(10))
                         ->required(),
 
