@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User\Entity\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
@@ -40,9 +41,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function gate()
     {
-        Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                //
+        Gate::define('viewNova', function (User $user) {
+            return in_array($user->role, [
+                User::ROLE_ADMIN, User::ROLE_OIVT, User::ROLE_ODIZ, User::ROLE_SKBT,
             ]);
         });
     }
