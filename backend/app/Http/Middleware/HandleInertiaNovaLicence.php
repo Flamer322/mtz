@@ -11,7 +11,7 @@ class HandleInertiaNovaLicence extends HandleInertiaRequests
     {
         return array_merge(parent::share($request), [
             'validLicense' => function () {
-                return true;
+                return false;
             },
         ]);
     }

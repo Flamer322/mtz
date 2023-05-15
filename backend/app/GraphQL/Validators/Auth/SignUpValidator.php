@@ -12,8 +12,8 @@ final class SignUpValidator extends Validator
     {
         return [
             'name' => ['required', 'string', 'max: 255'],
-            'email' => ['required', 'email', 'unique:App\User\Entity\User,email', 'max:255'],
-            'password' => ['required', 'min:6', 'max:255'],
+            'email' => ['required', 'string', 'email', 'unique:App\User\Entity\User,email', 'max:255'],
+            'password' => ['required', 'string', 'min:6', 'max:255'],
             'phone' => ['required', 'phone:RU', 'max:255'],
         ];
     }

@@ -58,11 +58,13 @@ class CategoryNova extends Resource
 
             Fields\DateTime::make('Создано', 'created_at')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
 
             Fields\DateTime::make('Обновлено', 'updated_at')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
         ];
     }
 

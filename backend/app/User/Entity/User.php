@@ -43,10 +43,10 @@ class User extends Authenticatable implements JWTSubject
     use HasApiTokens, Notifiable;
 
     public const ROLE_ADMIN = 'admin';
-    public const ROLE_OIVT = 'oivt';
-    public const ROLE_ODIZ = 'odiz';
-    public const ROLE_SKBT = 'skbt';
     public const ROLE_CLIENT = 'client';
+    public const ROLE_ENGINEER = 'engineer';
+    public const ROLE_SECRETARY = 'secretary';
+    public const ROLE_MANAGER = 'manager';
 
     protected $fillable = [
         'name',
@@ -68,10 +68,10 @@ class User extends Authenticatable implements JWTSubject
 
     public const USER_ROLES = [
         self::ROLE_ADMIN => 'Администратор',
-        self::ROLE_OIVT => 'ОИВТ',
-        self::ROLE_ODIZ => 'ОДИЗ',
-        self::ROLE_SKBT => 'СКБТ',
-        self::ROLE_CLIENT => 'Клиент'
+        self::ROLE_CLIENT => 'Клиент',
+        self::ROLE_ENGINEER => 'Инженер',
+        self::ROLE_SECRETARY => 'Секретарь',
+        self::ROLE_MANAGER => 'Менеджер продукции',
     ];
 
     public function getJWTIdentifier(): int
