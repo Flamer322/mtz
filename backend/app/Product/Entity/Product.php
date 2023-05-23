@@ -26,7 +26,6 @@ use Spatie\Sluggable\SlugOptions;
  * @property string $article
  * @property string $name
  * @property string $slug
- * @property string|null $image
  * @property string|null $description
  * @property string|null $note
  * @property bool $is_spare_part
@@ -62,7 +61,6 @@ use Spatie\Sluggable\SlugOptions;
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereIsSparePart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereNote($value)

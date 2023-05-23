@@ -41,6 +41,12 @@ services:
     ports:
       - "5432:5432"
 
+  mailer:
+    image: cd2team/mailhog
+    ports:
+      - "8082:8025"
+      - "1025:1025"
+
   storage:
     image: minio/minio
     entrypoint: sh -c 'mkdir -p /data/mtz && docker-entrypoint.sh minio server /data --console-address ":9001"'
