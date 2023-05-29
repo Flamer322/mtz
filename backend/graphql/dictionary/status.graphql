@@ -1,0 +1,4 @@
+type Status @model(class: "App\\Dictionary\\Entity\\Status") {
+    name: String!
+    color: String!
+}

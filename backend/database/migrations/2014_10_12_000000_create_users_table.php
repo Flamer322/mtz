@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('email')
                 ->unique();
             $table->string('password', 255);
-            $table->string('phone', 255);
+            $table->string('phone', 255)
+                ->nullable();
             $table->string('role', 30);
 
             $table->rememberToken();

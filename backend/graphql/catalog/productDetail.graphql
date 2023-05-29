@@ -1,0 +1,7 @@
+type ProductDetail @model(class: "App\\Product\\Entity\\ProductDetail") {
+    okp: String
+    reference_document: String
+    dimension: String
+    weight: String
+    average_failure_time: Float
+}

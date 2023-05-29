@@ -109,7 +109,7 @@ class Product extends Model implements HasMedia
 
     public function files(): BelongsToMany
     {
-        return $this->belongsToMany(Image::class,'product_files', 'product_id', 'file_id');
+        return $this->belongsToMany(File::class,'product_files', 'product_id', 'file_id');
     }
 
     public function fields(): HasMany
@@ -136,6 +136,11 @@ class Product extends Model implements HasMedia
     public function modifications(): BelongsToMany
     {
         return $this->belongsToMany(Product::class,'product_modifications', 'product_id', 'modification_id');
+    }
+
+    public function image(): ?Media
+    {
+        return $this->getMedia(self::MEDIA_COLLECTION)->first();
     }
 
     public function registerMediaConversions(Media $media = null): void

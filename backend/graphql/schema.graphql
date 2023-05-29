@@ -13,5 +13,12 @@ type InfoPayload {
     version: String
 }
 
+type Media {
+    name: String!
+    url: String! @field(resolver: "App\\GraphQL\\Types\\Media\\FileType@url")
+}
+
 #import auth/*.graphql
 #import user/*.graphql
+#import dictionary/*.graphql
+#import catalog/*.graphql

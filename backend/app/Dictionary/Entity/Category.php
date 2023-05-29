@@ -63,6 +63,11 @@ class Category extends Model implements HasMedia
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    public function image(): ?Media
+    {
+        return $this->getMedia(self::MEDIA_COLLECTION)->first();
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this

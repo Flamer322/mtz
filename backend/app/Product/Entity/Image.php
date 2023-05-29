@@ -49,6 +49,11 @@ class Image extends Model implements HasMedia
         return $this->belongsToMany(Product::class,'product_images', 'image_id', 'product_id');
     }
 
+    public function image(): ?Media
+    {
+        return $this->getMedia(self::MEDIA_COLLECTION)->first();
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this

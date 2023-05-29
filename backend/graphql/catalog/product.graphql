@@ -1,0 +1,20 @@
+extend type Query {
+    products: [Product] @paginate(defaultCount: 10)
+}
+
+type Product @model(class: "App\\Product\\Entity\\Product") {
+    id: Int!
+    article: String!
+    name: String!
+    slug: String!
+    description: String
+    note: String
+    is_spare_part: Boolean
+    image: Media @method(name: "image") @guard
+    detail: ProductDetail @hasOne
+    fields: [ProductAdditionalField] @hasMany
+    status: Status @hasOne
+    categories: [Category] @belongsToMany
+    images: [Image] @belongsToMany
+    files: [File] @belongsToMany
+}

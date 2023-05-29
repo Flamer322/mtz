@@ -1,0 +1,5 @@
+type Image @model(class: "App\\Product\\Entity\\Image") {
+    name: String!
+    alt: String!
+    image: Media @method(name: "image") @guard
+}

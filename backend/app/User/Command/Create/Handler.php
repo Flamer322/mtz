@@ -22,6 +22,7 @@ final class Handler
             'name' => $command->name,
             'email' => $command->email,
             'password' => $this->hasher->make($command->password),
+            'phone' => $command->phone,
             'role' => $command->role,
         ]);
 

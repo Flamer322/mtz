@@ -52,9 +52,9 @@ class File extends Model implements HasMedia
         return $this->belongsToMany(Product::class, 'product_files', 'file_id', 'product_id');
     }
 
-    public function files(): ?MediaCollection
+    public function file(): ?Media
     {
-        return $this->getMedia(self::MEDIA_COLLECTION);
+        return $this->getMedia(self::MEDIA_COLLECTION)->first();
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -96,7 +96,7 @@ class File extends Model implements HasMedia
 
     public function getFileExtensionPreview(): string
     {
-        if (!$file = $this->files()[0]) {
+        if (!$file = $this->file()) {
             return '';
         }
 
