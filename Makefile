@@ -17,22 +17,22 @@ docker-build:
 	docker compose build
 
 composer-update:
-	docker compose run --rm backend-php-cli composer update
+	docker compose run --rm php-cli composer update
 
 composer-install:
-	docker compose run --rm backend-php-cli composer install
+	docker compose run --rm php-cli composer install
 
 migrations:
-	docker compose run --rm backend-php-cli php artisan migrate --no-interaction
+	docker compose run --rm php-cli php artisan migrate --no-interaction
 
 make-env:
-	docker compose run --rm backend-php-cli cp .env.example .env
+	docker compose run --rm php-cli cp .env.example .env
 
 generate-key:
-	docker compose run --rm backend-php-cli php artisan key:generate
+	docker compose run --rm php-cli php artisan key:generate
 
 generate-jwt-secret:
-	docker compose run --rm backend-php-cli php artisan jwt:secret
+	docker compose run --rm php-cli php artisan jwt:secret
 
 generate-api-doc:
 	graphdoc -e http://localhost:8080/graphql -o ./public/docs --force

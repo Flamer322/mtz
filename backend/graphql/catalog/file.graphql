@@ -1,5 +1,5 @@
 type File @model(class: "App\\Product\\Entity\\File") {
     name: String!
     type: String!
-    file: Media @method(name: "file") @guard
+    file: Media @method(name: "file")
 }

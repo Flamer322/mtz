@@ -5,6 +5,7 @@ namespace App\Product\Entity;
 use App\Dictionary\Entity\CarriageSeries;
 use App\Dictionary\Entity\Category;
 use App\Dictionary\Entity\Status;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -141,6 +142,19 @@ class Product extends Model implements HasMedia
     public function image(): ?Media
     {
         return $this->getMedia(self::MEDIA_COLLECTION)->first();
+    }
+
+    public function byCategory(Builder $query, int $categoryId): Builder
+    {
+        return $query->whereHas('categories', static fn (Builder $query)
+            => $query->where('id', $categoryId));
+    }
+
+    public function byTerm(Builder $query, string $term): Builder
+    {
+        return $query
+            ->where('name', 'ilike', '%' . $term . '%')
+            ->orWhere('article', 'ilike', $term . '%');
     }
 
     public function registerMediaConversions(Media $media = null): void

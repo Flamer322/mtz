@@ -1,5 +1,8 @@
 extend type Query {
-    products: [Product] @paginate(defaultCount: 10)
+    products(
+        category: Int @builder(method: "App\\Product\\Entity\\Product@byCategory")
+        term: String @builder(method: "App\\Product\\Entity\\Product@byTerm")
+    ): [Product] @paginate(defaultCount: 10) @orderBy(column: "id", direction: DESC)
 }
 
 type Product @model(class: "App\\Product\\Entity\\Product") {
@@ -10,7 +13,7 @@ type Product @model(class: "App\\Product\\Entity\\Product") {
     description: String
     note: String
     is_spare_part: Boolean
-    image: Media @method(name: "image") @guard
+    image: Media @method(name: "image")
     detail: ProductDetail @hasOne
     fields: [ProductAdditionalField] @hasMany
     status: Status @hasOne

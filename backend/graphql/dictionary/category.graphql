@@ -1,8 +1,12 @@
+extend type Query {
+    categories: [Category] @all
+}
+
 type Category @model(class: "App\\Dictionary\\Entity\\Category") {
     slug: String!
     name: String!
     description: String
-    image: Media @method(name: "image") @guard
+    image: Media @method(name: "image")
     parent: Category
     children: [Category]
 }
