@@ -1,8 +1,12 @@
+extend type Mutation {
+    createOrder(input: CreateOrderInput): CreateOrderPayload @field(resolver: "Catalog\\CreateOrderMutation") @guard
+}
+
 type Order @model(class: "App\\Catalog\\Entity\\Order") {
     id: Int!
-    buyer_company: ClientCompany! @belongsTo @method(name: "buyerCompany")
-    payer_company: ClientCompany! @belongsTo @method(name: "payerCompany")
-    recipient_company: ClientCompany! @belongsTo @method(name: "recipientCompany")
+    buyer_company: ClientCompany @belongsTo(relation: "buyerCompany")
+    payer_company: ClientCompany! @belongsTo(relation: "payerCompany")
+    recipient_company: ClientCompany! @belongsTo(relation: "recipientCompany")
     contact_name: String
     contact_phone: String
     contact_email: String
@@ -10,7 +14,31 @@ type Order @model(class: "App\\Catalog\\Entity\\Order") {
     comment: String
     end_user_of_product: String
     delivery_date: String
-    status: Int
-    files: [Media] @method(name: "files")
+    status: String @method(name: "status")
     lines: [OrderLine] @hasMany
+    files: [Media] @method(name: "files")
+}
+
+input CreateOrderInput @validator(class: "Catalog\\CreateOrderValidator") {
+    buyerCompany: Int!
+    payerCompany: Int!
+    recipientCompany: Int!
+    contactName: String
+    contactPhone: String
+    contactEmail: String
+    documentType: String
+    comment: String
+    endUserOfProduct: String
+    deliveryDate: String
+    lines: [CreateOrderLineInput]
+    files: [Upload!]
+}
+
+input CreateOrderLineInput @validator(class: "Catalog\\CreateOrderLineValidator") {
+    product: Int!
+    quantity: Int!
+}
+
+type CreateOrderPayload {
+    id: Int!
 }

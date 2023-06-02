@@ -68,6 +68,10 @@ class Order extends Model implements HasMedia
 
     public const MEDIA_COLLECTION = 'order.files';
 
+    public const STATUS_WAIT_DEPARTURE = 1;
+    public const STATUS_SEND = 2;
+    public const STATUS_ACCEPT_MANAGER = 3;
+
     public $timestamps = true;
 
     protected $fillable = [
@@ -83,6 +87,12 @@ class Order extends Model implements HasMedia
 
     protected $casts = [
         'deleted_at' => 'datetime',
+    ];
+
+    public const STATUSES = [
+        self::STATUS_WAIT_DEPARTURE => 'Черновик',
+        self::STATUS_SEND => 'Новая',
+        self::STATUS_ACCEPT_MANAGER => 'Взята в работу',
     ];
 
     public function user(): BelongsTo
@@ -113,6 +123,11 @@ class Order extends Model implements HasMedia
     public function files(): MediaCollection
     {
         return $this->getMedia(self::MEDIA_COLLECTION);
+    }
+
+    public function status(): ?string
+    {
+        return $this->status ? self::STATUSES[$this->status] : null;
     }
 
     public function registerMediaConversions(Media $media = null): void

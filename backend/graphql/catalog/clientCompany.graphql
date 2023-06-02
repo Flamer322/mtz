@@ -1,5 +1,9 @@
+extend type Mutation {
+    createCompany(input: CreateCompanyInput): CreateCompanyPayload @field(resolver: "Catalog\\CreateCompanyMutation") @guard
+}
+
 type ClientCompany @model(class: "App\\Catalog\\Entity\\ClientCompany") {
-    id: Int!
+    id: Int
     legal_name: String!
     legal_address: String
     post_address: String
@@ -15,4 +19,26 @@ type ClientCompany @model(class: "App\\Catalog\\Entity\\ClientCompany") {
     bank_name: String
     director_post: String
     director_name: String
+}
+
+input CreateCompanyInput @validator(class: "Catalog\\CreateCompanyValidator") {
+    legalName: String!
+    legalAddress: String
+    postAddress: String
+    inn: String
+    okpo: String
+    kpp: String
+    ogrn: String
+    bik: String
+    corrAccount: String
+    bankAccount: String
+    mainOrganization: String
+    shortName: String
+    bankName: String
+    directorPost: String
+    directorName: String
+}
+
+type CreateCompanyPayload {
+    id: Int!
 }

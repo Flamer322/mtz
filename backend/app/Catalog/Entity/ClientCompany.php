@@ -66,6 +66,7 @@ class ClientCompany extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'legal_name',
         'legal_address',
         'post_address',
         'inn',
