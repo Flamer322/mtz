@@ -1,0 +1,16 @@
+type Order @model(class: "App\\Catalog\\Entity\\Order") {
+    id: Int!
+    buyer_company: ClientCompany! @belongsTo @method(name: "buyerCompany")
+    payer_company: ClientCompany! @belongsTo @method(name: "payerCompany")
+    recipient_company: ClientCompany! @belongsTo @method(name: "recipientCompany")
+    contact_name: String
+    contact_phone: String
+    contact_email: String
+    document_type: String
+    comment: String
+    end_user_of_product: String
+    delivery_date: String
+    status: Int
+    files: [Media] @method(name: "files")
+    lines: [OrderLine] @hasMany
+}

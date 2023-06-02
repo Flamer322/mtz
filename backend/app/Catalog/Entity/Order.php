@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * App\Catalog\Entity\Order
@@ -28,8 +33,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Catalog\Entity\ClientCompany $buyerCompany
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Catalog\Entity\OrderFile> $files
- * @property-read int|null $files_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Catalog\Entity\OrderLine> $lines
  * @property-read int|null $lines_count
  * @property-read \App\Catalog\Entity\ClientCompany $payerCompany
@@ -59,9 +62,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Order withoutTrashed()
  * @mixin \Eloquent
  */
-class Order extends Model
+class Order extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes, InteractsWithMedia;
+
+    public const MEDIA_COLLECTION = 'order.files';
 
     public $timestamps = true;
 
@@ -100,13 +105,26 @@ class Order extends Model
         return $this->belongsTo(ClientCompany::class, 'recipient_company_id');
     }
 
-    public function files(): HasMany
-    {
-        return $this->hasMany(OrderFile::class, 'order_id');
-    }
-
     public function lines(): HasMany
     {
         return $this->hasMany(OrderLine::class, 'order_id');
+    }
+
+    public function files(): MediaCollection
+    {
+        return $this->getMedia(self::MEDIA_COLLECTION);
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection(self::MEDIA_COLLECTION);
     }
 }

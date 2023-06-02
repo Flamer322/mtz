@@ -1,0 +1,5 @@
+type OrderLine @model(class: "App\\Catalog\\Entity\\OrderLine") {
+    id: Int!
+    product: Product! @belongsTo
+    quantity: Int!
+}

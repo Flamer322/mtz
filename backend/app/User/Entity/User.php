@@ -2,6 +2,9 @@
 
 namespace App\User\Entity;
 
+use App\Catalog\Entity\ClientCompany;
+use App\Catalog\Entity\Order;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -20,8 +23,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, ClientCompany> $companies
+ * @property-read int|null $companies_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -85,5 +92,15 @@ class User extends Authenticatable implements JWTSubject
             'name' => $this->name,
             'email' => $this->email,
         ];
+    }
+
+    public function companies(): HasMany
+    {
+        return $this->hasMany(ClientCompany::class, 'user_id');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'user_id');
     }
 }

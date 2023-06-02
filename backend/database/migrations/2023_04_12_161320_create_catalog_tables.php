@@ -113,23 +113,6 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('order_files', function (Blueprint $table) {
-            $table->id();
-
-            $table->integer('order_id')
-                ->unsigned();
-
-            $table->string('file', 255);
-            $table->string('name', 255)
-                ->nullable();
-
-            $table->foreign('order_id')
-                ->references('id')
-                ->on('orders')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-        });
-
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
 
@@ -161,7 +144,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('order_lines');
-        Schema::dropIfExists('order_files');
         Schema::dropIfExists('orders');
         Schema::dropIfExists('client_companies');
     }

@@ -6,5 +6,7 @@ type User @model(class: "App\\User\\Entity\\User") {
     id: Int!
     name: String!
     email: String!
-    phone: String!
+    phone: String
+    companies: [ClientCompany] @hasMany
+    orders: [Order] @hasMany
 }

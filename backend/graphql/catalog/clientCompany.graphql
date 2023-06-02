@@ -1,0 +1,18 @@
+type ClientCompany @model(class: "App\\Catalog\\Entity\\ClientCompany") {
+    id: Int!
+    legal_name: String!
+    legal_address: String
+    post_address: String
+    inn: String
+    okpo: String
+    kpp: String
+    ogrn: String
+    bik: String
+    corr_account: String
+    bank_account: String
+    main_organization: String
+    short_name: String
+    bank_name: String
+    director_post: String
+    director_name: String
+}
