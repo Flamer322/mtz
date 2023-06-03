@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $legal_name
  * @property string|null $legal_address
  * @property string|null $post_address
- * @property string|null $inn
+ * @property string $inn
  * @property string|null $okpo
  * @property string|null $kpp
  * @property string|null $ogrn

@@ -12,7 +12,7 @@ class ProductDetailNova extends Resource
 {
     public static $model = ProductDetail::class;
 
-    public static $title = 'name';
+    public static $title = 'id';
 
     public static $group = 'Продукция';
 

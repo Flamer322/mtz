@@ -7,7 +7,7 @@ type ClientCompany @model(class: "App\\Catalog\\Entity\\ClientCompany") {
     legal_name: String!
     legal_address: String
     post_address: String
-    inn: String
+    inn: String!
     okpo: String
     kpp: String
     ogrn: String
@@ -25,7 +25,7 @@ input CreateCompanyInput @validator(class: "Catalog\\CreateCompanyValidator") {
     legalName: String!
     legalAddress: String
     postAddress: String
-    inn: String
+    inn: String!
     okpo: String
     kpp: String
     ogrn: String

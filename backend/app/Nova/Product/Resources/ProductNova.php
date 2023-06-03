@@ -19,7 +19,10 @@ class ProductNova extends Resource
 
     public static $model = Product::class;
 
-    public static $title = 'name';
+    public function title()
+    {
+        return $this->article . ' | ' . $this->name;
+    }
 
     public static $group = 'Продукция';
 

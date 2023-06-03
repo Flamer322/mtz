@@ -14,7 +14,7 @@ final class CreateCompanyValidator extends Validator
             'legalName' => ['required', 'string', 'max: 255'],
             'legalAddress' => ['string', 'max: 255'],
             'postAddress' => ['string', 'max: 255'],
-            'inn' => ['string', 'max: 255'],
+            'inn' => ['required', 'string', 'max: 255'],
             'okpo' => ['string', 'max: 255'],
             'kpp' => ['string', 'max: 255'],
             'ogrn' => ['string', 'max: 255'],

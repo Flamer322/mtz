@@ -4,6 +4,7 @@ namespace App\Nova\User\Resources;
 
 use App\Nova\Resource;
 use App\User\Entity\User;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -47,7 +48,7 @@ class UserNova extends Resource
                 ->sortable(),
 
             Fields\Text::make('Номер телефона', 'phone')
-                ->rules('required', 'phone:RU', 'max:255'),
+                ->rules('nullable', 'phone:RU', 'max:255'),
 
             Fields\Select::make('Роль', 'role')
                 ->options(User::USER_ROLES)
@@ -55,9 +56,15 @@ class UserNova extends Resource
                 ->rules('required'),
 
             Fields\Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', Rules\Password::defaults())
-                ->updateRules('nullable', Rules\Password::defaults()),
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenUpdating()
+                ->creationRules('required', Rules\Password::defaults()),
         ];
+    }
+
+    public function authorizedToDelete(Request $request)
+    {
+        return false;
     }
 }

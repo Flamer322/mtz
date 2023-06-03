@@ -22,8 +22,7 @@ return new class extends Migration
                 ->nullable();
             $table->string('post_address', 255)
                 ->nullable();
-            $table->string('inn', 255)
-                ->nullable();
+            $table->string('inn', 255);
             $table->string('okpo', 255)
                 ->nullable();
             $table->string('kpp', 255)
