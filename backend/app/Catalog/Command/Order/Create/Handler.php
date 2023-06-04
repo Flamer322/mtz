@@ -48,6 +48,10 @@ final class Handler
             $this->companies->findById($command->payerCompany)
         );
 
+        $order->recipientCompany()->associate(
+            $this->companies->findById($command->recipientCompany)
+        );
+
         $this->orders->save($order);
 
         foreach ($command->lines as $line) {
@@ -63,10 +67,6 @@ final class Handler
 
             $this->lines->save($orderLine);
         }
-
-        $order->recipientCompany()->associate(
-            $this->companies->findById($command->recipientCompany)
-        );
 
         return $order;
     }
