@@ -53,7 +53,8 @@ class User extends Authenticatable implements JWTSubject
     public const ROLE_CLIENT = 'client';
     public const ROLE_ENGINEER = 'engineer';
     public const ROLE_SECRETARY = 'secretary';
-    public const ROLE_MANAGER = 'manager';
+    public const ROLE_PRODUCT_MANAGER = 'product_manager';
+    public const ROLE_ORDER_MANAGER = 'order_manager';
 
     protected $fillable = [
         'name',
@@ -78,7 +79,8 @@ class User extends Authenticatable implements JWTSubject
         self::ROLE_CLIENT => 'Клиент',
         self::ROLE_ENGINEER => 'Инженер',
         self::ROLE_SECRETARY => 'Секретарь',
-        self::ROLE_MANAGER => 'Менеджер продукции',
+        self::ROLE_PRODUCT_MANAGER => 'Менеджер продукции',
+        self::ROLE_ORDER_MANAGER => 'Менеджер заказов',
     ];
 
     public function getJWTIdentifier(): int

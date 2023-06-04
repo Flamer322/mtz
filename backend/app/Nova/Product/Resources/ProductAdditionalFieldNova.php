@@ -34,8 +34,7 @@ class ProductAdditionalFieldNova extends Resource
             Fields\Text::make('Название', 'name')
                 ->rules('max:255', 'required'),
 
-            Fields\Textarea::make('Значение', 'value')
-                ->rules('required'),
+            Fields\Textarea::make('Значение', 'value'),
 
             Fields\Text::make('Значение', 'value')
                 ->displayUsing(static fn ($text) => Str::limit($text, 30))

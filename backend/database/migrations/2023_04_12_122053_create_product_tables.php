@@ -151,7 +151,8 @@ return new class extends Migration
                 ->unsigned();
 
             $table->string('name', 255);
-            $table->text('value');
+            $table->text('value')
+                ->nullable();
             $table->integer('sort_order');
 
             $table->timestamps();
