@@ -1,5 +1,7 @@
 extend type Mutation {
     createOrder(input: CreateOrderInput): CreateOrderPayload @field(resolver: "Catalog\\CreateOrderMutation") @guard
+
+    order(id: ID! @eq @rules(apply: ["required", "integer", "exists:App\\Catalog\\Entity\\Order,id"])): Order! @find
 }
 
 type Order @model(class: "App\\Catalog\\Entity\\Order") {
