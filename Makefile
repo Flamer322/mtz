@@ -34,5 +34,8 @@ generate-key:
 generate-jwt-secret:
 	docker compose run --rm php-cli php artisan jwt:secret
 
+create-user:
+	docker compose run --rm php-cli php artisan mtz:user:create
+
 generate-api-doc:
 	graphdoc -e http://localhost:8080/graphql -o ./public/docs --force

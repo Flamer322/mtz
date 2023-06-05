@@ -70,7 +70,8 @@ class CategoryNova extends Resource
 
     public static function relatableCategories(NovaRequest $request, $query): Builder
     {
-        $resourceId = $request->get('resourceId');
-            return $query->where('id', '!=', $resourceId);
+        $resourceId = $request->resourceId;
+
+        return $query->where('id', '!=', $resourceId);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Nova\Product\Resources;
 
+use App\Dictionary\Entity\Status;
 use App\Nova\Dictionary\Resources\CategoryNova;
 use App\Nova\Dictionary\Resources\StatusNova;
 use App\Nova\Resource;
@@ -9,6 +10,7 @@ use App\Product\Entity\Product;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Traits\HasTabs;
 use Eminiarts\Tabs;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -37,7 +39,7 @@ class ProductNova extends Resource
     }
 
     public static $search = [
-        'name',
+        'name', 'article',
     ];
 
     public function fields(NovaRequest $request)
@@ -65,7 +67,15 @@ class ProductNova extends Resource
                         ->hideWhenCreating()
                         ->hideWhenUpdating(),
 
-                    Fields\BelongsTo::make('Статус', 'status', StatusNova::class),
+                    Fields\Text::make('Статус', 'status', static fn (Status $status) => '<span style="color:
+                            white; background-color: ' . $status->color .'" class="inline-flex items-center whitespace-nowrap
+                            min-h-6 px-2 rounded-full uppercase text-xs font-bold">'. $status->name . '</span>')
+                        ->asHtml()
+                        ->hideWhenCreating()
+                        ->hideWhenUpdating(),
+
+                    Fields\BelongsTo::make('Статус', 'status', StatusNova::class)
+                        ->onlyOnForms(),
 
                     Fields\Textarea::make('Описание', 'description'),
 
@@ -91,5 +101,12 @@ class ProductNova extends Resource
                 Fields\BelongsToMany::make('Аналоги', 'modifications', ProductNova::class),
             ])->withToolbar(),
         ];
+    }
+
+    public static function relatableProducts(NovaRequest $request, $query): Builder
+    {
+        $resourceId = $request->resourceId;
+
+        return $query->where('id', '!=', $resourceId);
     }
 }

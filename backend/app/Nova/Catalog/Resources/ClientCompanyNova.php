@@ -5,7 +5,6 @@ namespace App\Nova\Catalog\Resources;
 use App\Catalog\Entity\ClientCompany;
 use App\Nova\Resource;
 use App\Nova\User\Resources\UserNova;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -87,15 +86,5 @@ class ClientCompanyNova extends Resource
 
             Fields\DateTime::make('Дата создания', 'created_at'),
         ];
-    }
-
-    public static function authorizedToCreate(Request $request)
-    {
-        return false;
-    }
-
-    public function authorizedToDelete(Request $request)
-    {
-        return false;
     }
 }
