@@ -7,7 +7,7 @@ namespace App\Catalog\Policies;
 use App\User\Entity\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-final class CatalogPolicy
+final class OrderLinePolicy
 {
     use HandlesAuthorization;
 
