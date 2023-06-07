@@ -2,6 +2,10 @@ extend type Mutation {
     createCompany(input: CreateCompanyInput): CreateCompanyPayload @field(resolver: "Catalog\\CreateCompanyMutation") @guard
 }
 
+extend type Query {
+    company(id: ID! @eq @rules(apply: ["required", "integer", "exists:App\\Catalog\\Entity\\ClientCompany,id"])): ClientCompany! @find
+}
+
 type ClientCompany @model(class: "App\\Catalog\\Entity\\ClientCompany") {
     id: Int
     legal_name: String!

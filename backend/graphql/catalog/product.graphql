@@ -3,6 +3,8 @@ extend type Query {
         category: Int @builder(method: "App\\Product\\Entity\\Product@byCategory")
         term: String @builder(method: "App\\Product\\Entity\\Product@byTerm")
     ): [Product] @paginate(defaultCount: 10) @orderBy(column: "id", direction: DESC)
+
+    product(id: ID! @eq @rules(apply: ["required", "integer", "exists:App\\Product\\Entity\\Product,id"])): Product! @find
 }
 
 type Product @model(class: "App\\Product\\Entity\\Product") {
