@@ -446,5 +446,8 @@
     "Notifications": "Уведомления",
     "Mark all as Read": "Отметить все как прочитанное",
     "Copy to clipboard": "Копировать в буфер обмена",
-    "Add New Media": "Добавить медиа"
+    "Add New Media": "Добавить медиа",
+    "Add New File": "Добавить файл",
+    "Upload New Media": "Добавить новое медиа",
+    "Upload New File": "Добавить новый файл"
 }

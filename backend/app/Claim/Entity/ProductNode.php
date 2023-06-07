@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $product_id
  * @property string $name
+ * @property string $article
  * @property-read Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNode newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNode whereArticle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNode whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNode whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNode whereProductId($value)
@@ -27,6 +29,7 @@ class ProductNode extends Model
 
     protected $fillable = [
         'name',
+        'article',
     ];
 
     public function product(): BelongsTo

@@ -35,4 +35,9 @@ final class UserPolicy
     {
         return $user->role == User::ROLE_ADMIN;
     }
+
+    public function replicate(User $user): bool
+    {
+        return false;
+    }
 }

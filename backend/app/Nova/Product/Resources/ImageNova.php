@@ -63,7 +63,7 @@ class ImageNova extends Resource
                 ]),
 
                 Fields\BelongsToMany::make('Продукция', 'products', ProductNova::class),
-            ]),
+            ])->withToolbar(),
         ];
     }
 }

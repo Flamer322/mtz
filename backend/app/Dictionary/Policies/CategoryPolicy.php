@@ -35,4 +35,9 @@ final class CategoryPolicy
     {
         return in_array($user->role, [User::ROLE_ADMIN, User::ROLE_PRODUCT_MANAGER]);
     }
+
+    public function replicate(User $user): bool
+    {
+        return false;
+    }
 }

@@ -44,6 +44,7 @@ return new class extends Migration
                 ->unsigned();
 
             $table->string('name', 255);
+            $table->string('article', 255);
 
             $table->foreign('product_id')
                 ->references('id')
@@ -78,6 +79,10 @@ return new class extends Migration
                 ->unsigned()
                 ->nullable();
             $table->integer('claim_company_id')
+                ->unsigned();
+            $table->integer('created_by')
+                ->unsigned();
+            $table->integer('managed_by')
                 ->unsigned()
                 ->nullable();
 
@@ -107,6 +112,8 @@ return new class extends Migration
                 ->nullable();
             $table->text('comment')
                 ->nullable();
+
+            $table->timestamps();
 
             $table->foreign('defect_type_id')
                 ->references('id')
@@ -138,22 +145,18 @@ return new class extends Migration
                 ->on('claim_companies')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
-        });
-
-        Schema::create('claim_files', function (Blueprint $table) {
-            $table->id();
-
-            $table->integer('claim_id')
-                ->unsigned();
-
-            $table->string('file', 255);
-            $table->string('name', 255);
-
-            $table->foreign('claim_id')
+            $table->foreign('created_by')
                 ->references('id')
-                ->on('claims')
+                ->on('users')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
+            $table->foreign('managed_by')
+                ->references('id')
+                ->on('users')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->softDeletes();
         });
     }
 
@@ -162,7 +165,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('claim_files');
         Schema::dropIfExists('claims');
         Schema::dropIfExists('claim_companies');
         Schema::dropIfExists('product_nodes');

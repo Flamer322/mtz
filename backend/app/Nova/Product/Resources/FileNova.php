@@ -38,7 +38,7 @@ class FileNova extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            Tabs\Tabs::make('Изображение', [
+            Tabs\Tabs::make('Файл', [
                 Tabs\Tab::make('Основная информация', [
                     Fields\ID::make()->sortable(),
 
@@ -71,7 +71,7 @@ class FileNova extends Resource
                 ]),
 
                 Fields\BelongsToMany::make('Продукция', 'products', ProductNova::class),
-            ]),
+            ])->withToolbar(),
         ];
     }
 }

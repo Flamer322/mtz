@@ -76,28 +76,8 @@ class OrderNova extends Resource
 
                 Fields\HasMany::make('Позиции заявки', 'lines', OrderLineNova::class),
 
-                Files::make('Файлы заявки', 'files'),
+                Files::make('Файлы заявки', Order::MEDIA_COLLECTION),
             ]),
         ];
-    }
-
-    public static function authorizedToCreate(Request $request)
-    {
-        return false;
-    }
-
-    public function authorizedToDelete(Request $request)
-    {
-        return false;
-    }
-
-    public function authorizedToUpdate(Request $request)
-    {
-        return false;
-    }
-
-    public function authorizedToReplicate(Request $request)
-    {
-        return false;
     }
 }

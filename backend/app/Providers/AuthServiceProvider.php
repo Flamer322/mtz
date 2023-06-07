@@ -8,6 +8,16 @@ use App\Catalog\Entity\OrderLine;
 use App\Catalog\Policies\ClientCompanyPolicy;
 use App\Catalog\Policies\OrderLinePolicy;
 use App\Catalog\Policies\OrderPolicy;
+use App\Claim\Entity\Claim;
+use App\Claim\Entity\ClaimCompany;
+use App\Claim\Entity\DefectType;
+use App\Claim\Entity\OperatingTime;
+use App\Claim\Entity\ProductNode;
+use App\Claim\Policies\ClaimCompanyPolicy;
+use App\Claim\Policies\ClaimPolicy;
+use App\Claim\Policies\DefectTypePolicy;
+use App\Claim\Policies\OperatingTimePolicy;
+use App\Claim\Policies\ProductNodePolicy;
 use App\Dictionary\Entity\CarriageSeries;
 use App\Dictionary\Entity\CarriageType;
 use App\Dictionary\Entity\Category;
@@ -56,6 +66,11 @@ class AuthServiceProvider extends ServiceProvider
         Order::class => OrderPolicy::class,
         OrderLine::class => OrderLinePolicy::class,
         #CLAIMS
+        Claim::class => ClaimPolicy::class,
+        ClaimCompany::class => ClaimCompanyPolicy::class,
+        DefectType::class => DefectTypePolicy::class,
+        OperatingTime::class => OperatingTimePolicy::class,
+        ProductNode::class => ProductNodePolicy::class,
     ];
 
     /**

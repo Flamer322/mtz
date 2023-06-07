@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class OperatingTime extends Model
 {
+    public const UNIT_KM = 'km';
+    public const UNIT_H = 'h';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -43,6 +46,16 @@ class OperatingTime extends Model
 
     protected $casts = [
         'date' => 'datetime'
+    ];
+
+    public const UNITS = [
+        self::UNIT_KM => 'Километры',
+        self::UNIT_H => 'Часы',
+    ];
+
+    public const UNIT_LIST = [
+        self::UNIT_KM => 'Км.',
+        self::UNIT_H => 'Ч.'
     ];
 
     public function series(): BelongsTo
