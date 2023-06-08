@@ -48,7 +48,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         Gate::define('viewNova', function (User $user) {
             return in_array($user->role, [
-                User::ROLE_ADMIN, User::ROLE_ENGINEER, User::ROLE_SECRETARY, User::ROLE_PRODUCT_MANAGER, USER::ROLE_ORDER_MANAGER
+                User::ROLE_ADMIN, User::ROLE_ENGINEER, User::ROLE_SECRETARY,
+                User::ROLE_PRODUCT_MANAGER, USER::ROLE_ORDER_MANAGER,
             ]);
         });
     }
