@@ -36,6 +36,10 @@ use App\Product\Policies\ImagePolicy;
 use App\Product\Policies\ProductAdditionalFieldPolicy;
 use App\Product\Policies\ProductDetailPolicy;
 use App\Product\Policies\ProductPolicy;
+use App\Report\Entity\AlgorithmParameter;
+use App\Report\Entity\Reliability;
+use App\Report\Policies\AlgorithmParameterPolicy;
+use App\Report\Policies\ReliabilityPolicy;
 use App\User\Entity\User;
 use App\User\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -71,6 +75,9 @@ class AuthServiceProvider extends ServiceProvider
         DefectType::class => DefectTypePolicy::class,
         OperatingTime::class => OperatingTimePolicy::class,
         ProductNode::class => ProductNodePolicy::class,
+        #REPORTS
+        AlgorithmParameter::class => AlgorithmParameterPolicy::class,
+        Reliability::class => ReliabilityPolicy::class,
     ];
 
     /**

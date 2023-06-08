@@ -95,7 +95,8 @@ class Product extends Model implements HasMedia
 
     public function series(): BelongsToMany
     {
-        return $this->belongsToMany(CarriageSeries::class,'product_series', 'product_id', 'series_id');
+        return $this->belongsToMany(CarriageSeries::class,'product_series', 'product_id', 'series_id')
+            ->withPivot('quantity');
     }
 
     public function categories(): BelongsToMany

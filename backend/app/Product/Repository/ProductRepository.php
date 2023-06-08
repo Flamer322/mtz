@@ -4,6 +4,7 @@ namespace App\Product\Repository;
 
 use App\Product\Entity\Product;
 use DomainException;
+use Illuminate\Support\Collection;
 
 final class ProductRepository
 {
@@ -33,5 +34,10 @@ final class ProductRepository
         }
 
         return $product;
+    }
+
+    public function findAll(): Collection
+    {
+        return Product::all();
     }
 }
