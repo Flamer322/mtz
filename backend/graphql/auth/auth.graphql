@@ -13,7 +13,7 @@ input SignUpInput @validator(class: "Auth\\SignUpValidator") {
     name: String!
     email: String!
     password: String!
-    phone: String!
+    phone: String
 }
 
 type SignInPayload {
