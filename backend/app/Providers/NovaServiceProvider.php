@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Nova\User\Observers\UserObserver;
 use App\User\Entity\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
@@ -17,6 +18,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::serving(static function (): void {
+            User::observe(UserObserver::class);
+        });
     }
 
     /**
@@ -43,7 +48,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         Gate::define('viewNova', function (User $user) {
             return in_array($user->role, [
-                User::ROLE_ADMIN, User::ROLE_ENGINEER, User::ROLE_SECRETARY, User::ROLE_MANAGER,
+                User::ROLE_ADMIN, User::ROLE_ENGINEER, User::ROLE_SECRETARY, User::ROLE_PRODUCT_MANAGER, USER::ROLE_ORDER_MANAGER
             ]);
         });
     }

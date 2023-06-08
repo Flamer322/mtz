@@ -33,7 +33,7 @@ final class UserPolicy
 
     public function delete(User $user): bool
     {
-        return $user->role == User::ROLE_ADMIN;
+        return false;
     }
 
     public function replicate(User $user): bool

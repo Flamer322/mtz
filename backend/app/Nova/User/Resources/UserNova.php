@@ -37,7 +37,7 @@ class UserNova extends Resource
             Fields\ID::make()
                 ->sortable(),
 
-            Fields\Text::make('Name')
+            Fields\Text::make('Имя', 'name')
                 ->rules('required', 'max:255')
                 ->sortable(),
 
@@ -45,7 +45,8 @@ class UserNova extends Resource
                 ->rules('required', 'email', 'max:255')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}')
-                ->sortable(),
+                ->sortable()
+                ->hideWhenUpdating(),
 
             Fields\Text::make('Номер телефона', 'phone')
                 ->rules('nullable', 'phone:RU', 'max:255'),
@@ -54,17 +55,6 @@ class UserNova extends Resource
                 ->options(User::USER_ROLES)
                 ->displayUsing(static fn ($role) => User::USER_ROLES[$role])
                 ->rules('required'),
-
-            Fields\Password::make('Password')
-                ->hideFromIndex()
-                ->hideFromDetail()
-                ->hideWhenUpdating()
-                ->creationRules('required', Rules\Password::defaults()),
         ];
-    }
-
-    public function authorizedToDelete(Request $request)
-    {
-        return false;
     }
 }

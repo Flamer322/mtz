@@ -12,6 +12,7 @@
         "ebess/advanced-nova-media-library": "^4.1",
         "eminiarts/nova-tabs": "^2.2",
         "guzzlehttp/guzzle": "^7.2",
+        "hackzilla/password-generator": "^1.6",
         "laravel/framework": "^10.0",
         "laravel/nova": "^4.23.0",
         "laravel/sanctum": "^3.2",
