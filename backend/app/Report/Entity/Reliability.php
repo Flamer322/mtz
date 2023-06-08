@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $total_operating
  * @property float $point_rate
  * @property float $top_rate
- * @property-read Product $type
+ * @property-read Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|Reliability newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reliability newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reliability query()

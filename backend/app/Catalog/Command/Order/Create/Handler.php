@@ -68,6 +68,11 @@ final class Handler
             $this->lines->save($orderLine);
         }
 
+        foreach ($command->files as $file) {
+            $order->addMedia($file)
+                ->toMediaCollection(Order::MEDIA_COLLECTION);
+        }
+
         return $order;
     }
 }

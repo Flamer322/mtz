@@ -131,9 +131,10 @@ class ClaimNova extends Resource
                 ->alwaysShow()
                 ->canSee(static fn () => in_array($request->user()->role, [User::ROLE_ADMIN, User::ROLE_ENGINEER])),
 
-            Fields\Hidden::make('Создатель', 'created_by')->default(function ($request) {
-                return $request->user()->id;
-            })
+            Fields\Hidden::make('Создатель', 'created_by')
+                ->default(function ($request) {
+                    return $request->user()->id;
+                })
                 ->hideFromIndex()
                 ->hideFromDetail(),
 

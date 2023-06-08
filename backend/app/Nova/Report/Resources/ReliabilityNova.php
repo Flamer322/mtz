@@ -2,12 +2,11 @@
 
 namespace App\Nova\Report\Resources;
 
-use App\Dictionary\Entity\CarriageSeries;
-use App\Nova\Dictionary\Resources\CarriageTypeNova;
 use App\Nova\Product\Resources\ProductNova;
 use App\Nova\Report\Actions\CalculateReliabilityAction;
 use App\Nova\Resource;
 use App\Report\Entity\Reliability;
+use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -35,10 +34,27 @@ class ReliabilityNova extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            (new CalculateReliabilityAction)
+            CalculateReliabilityAction::make()
                 ->standalone()
                 ->onlyOnIndex()
                 ->confirmButtonText('Рассчитать'),
+
+            ExportAsCsv::make()
+                ->withMeta([
+                    'name' => 'Экспортировать в CSV'
+                ])
+                ->withFormat(function (Reliability $model) {
+                    return [
+                        'Индекс' => $model->product->article,
+                        'Наименование' => $model->product->name,
+                        'Средняя наработка на отказ' => $model->product->detail?->average_failure_time,
+                        'Количество отказов' => $model->failure_number,
+                        'Наработка' => $model->total_operating,
+                        'Точечная интенсивность' => $model->point_rate,
+                        'Верхняя граница интенсивности' => $model->top_rate,
+                    ];
+                })
+                ->confirmButtonText('Экспортировать'),
         ];
     }
 

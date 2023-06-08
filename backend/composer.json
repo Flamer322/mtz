@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-fileinfo": "*",
+        "box/spout": "^3.3",
         "coderello/laravel-nova-lang": "^2.0",
         "ebess/advanced-nova-media-library": "^4.1",
         "eminiarts/nova-tabs": "^2.2",
