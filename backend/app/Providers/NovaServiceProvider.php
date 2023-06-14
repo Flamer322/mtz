@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Nova\Report\Observers\NoteTemplateObserver;
 use App\Nova\User\Observers\UserObserver;
+use App\Report\Entity\NoteTemplate;
 use App\User\Entity\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
@@ -21,6 +23,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::serving(static function (): void {
             User::observe(UserObserver::class);
+            NoteTemplate::observe(NoteTemplateObserver::class);
         });
     }
 

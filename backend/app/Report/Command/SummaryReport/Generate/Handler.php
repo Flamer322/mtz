@@ -106,12 +106,12 @@ final class Handler
             $writer->close();
 
             $report->addMedia(new UploadedFile(
-                $filePath,
-                $fileName,
-                mime_content_type($filePath),
-                filesize($filePath),
-                0,
-            ))
+                    $filePath,
+                    $fileName,
+                    mime_content_type($filePath),
+                    filesize($filePath),
+                    0,
+                ))
                 ->toMediaCollection(SummaryReport::MEDIA_COLLECTION);
         }
     }

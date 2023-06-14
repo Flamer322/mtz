@@ -2,7 +2,7 @@
 
 namespace App\Nova\Report\Actions;
 
-use App\Report\Command\SummaryReport\Generate;
+use App\Report\Command\ExplanatoryNote\Generate;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;

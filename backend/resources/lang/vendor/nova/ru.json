@@ -452,5 +452,6 @@
     "Upload New File": "Добавить новый файл",
     "Select this page": "Выбрать эту страницу",
     "Select all": "Выбрать все",
-    ":amount selected": "Выбрано :amount"
+    ":amount selected": "Выбрано :amount",
+    "Drop file or click to choose": "Перетащите файл или нажмите, чтобы выбрать"
 }

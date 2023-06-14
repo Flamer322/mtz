@@ -18,9 +18,21 @@ use Illuminate\Database\Eloquent\Model;
  */
 class NoteTemplate extends Model
 {
+    public const EXPLANATORY = "explanatory";
+
     public $timestamps = false;
 
     protected $fillable = [
         'type',
+    ];
+
+    public ?string $file;
+
+    public const DIRS = [
+        self::EXPLANATORY => '/reports/explanatory',
+    ];
+
+    public const VALUES = [
+        self::EXPLANATORY => 'Шаблон пояснительной записки',
     ];
 }
