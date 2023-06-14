@@ -76,6 +76,7 @@ class ClaimNova extends Resource
 
             Fields\BelongsTo::make('Серия состава', 'series', CarriageSeriesNova::class)
                 ->nullable()
+                ->searchable()
                 ->canSee(static fn () => in_array($request->user()->role, [User::ROLE_ADMIN, User::ROLE_ENGINEER])),
 
             Fields\Text::make('№ подвижного состава', 'carriage_number')
@@ -85,6 +86,7 @@ class ClaimNova extends Resource
 
             Fields\BelongsTo::make('Продукция', 'product', ProductNova::class)
                 ->nullable()
+                ->searchable()
                 ->canSee(static fn () => in_array($request->user()->role, [User::ROLE_ADMIN, User::ROLE_ENGINEER])),
 
             Fields\Text::make('Заводской № изделия', 'manufacture_number')

@@ -2,22 +2,19 @@
 
 namespace App\Nova\Report\Resources;
 
-use App\Nova\Claim\Resources\ClaimCompanyNova;
-use App\Nova\Dictionary\Resources\CarriageSeriesNova;
-use App\Nova\Dictionary\Resources\CarriageTypeNova;
 use App\Nova\Product\Resources\ProductNova;
-use App\Nova\Report\Actions\GenerateSummaryReportAction;
+use App\Nova\Report\Actions\GenerateExplanatoryNoteAction;
 use App\Nova\Resource;
 use App\Nova\User\Resources\UserNova;
-use App\Report\Entity\SummaryReport;
+use App\Report\Entity\ExplanatoryNote;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class SummaryReportNova extends Resource
+class ExplanatoryNoteNova extends Resource
 {
-    public static $model = SummaryReport::class;
+    public static $model = ExplanatoryNote::class;
 
     public static $title = 'name';
 
@@ -25,12 +22,12 @@ class SummaryReportNova extends Resource
 
     public static function label()
     {
-        return 'Сводные отчёты';
+        return 'Пояснительные записки';
     }
 
     public static function singularLabel()
     {
-        return 'Сводный отчёт';
+        return 'Пояснительная записка';
     }
 
     public static $search = [
@@ -40,7 +37,7 @@ class SummaryReportNova extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            GenerateSummaryReportAction::make()
+            GenerateExplanatoryNoteAction::make()
                 ->confirmButtonText('Сгенерировать')
                 ->exceptOnIndex(),
         ];
@@ -77,51 +74,12 @@ class SummaryReportNova extends Resource
             Fields\Date::make('Дата конца периода наблюдения', 'period_to_date')
                 ->rules('required'),
 
-            Files::make('Файл', SummaryReport::MEDIA_COLLECTION)
+            Files::make('Файл', ExplanatoryNote::MEDIA_COLLECTION)
                 ->temporary(Carbon::now()->addMinutes(10))
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            Fields\BelongsTo::make('Компания', 'company', ClaimCompanyNova::class)
-                ->nullable()
-                ->hideFromIndex(),
-
-            Fields\BelongsToMany::make('Продукция', 'products', ProductNova::class)
-                ->searchable(),
-
-            Fields\BelongsToMany::make('Типы составов', 'types', CarriageTypeNova::class)
-                ->searchable(),
-
-            Fields\BelongsToMany::make('Серии составов', 'series', CarriageSeriesNova::class)
-                ->searchable(),
-
-//            BelongsToMany::make('Продукция', 'products', ProductNova::class)
-//                ->rules('required')
-//                ->onlyOnForms(),
-//
-//            Fields\Text::make('Продукция', 'products', static fn (Collection $products) => $products
-//                ->map(static fn (Product $product) => $product->article . ' | ' . $product->name)->implode(', '))
-//                ->hideWhenCreating()
-//                ->hideWhenUpdating()
-//                ->hideFromIndex(),
-//
-//            BelongsToMany::make('Типы составов', 'types', CarriageTypeNova::class)
-//                ->onlyOnForms(),
-//
-//            Fields\Text::make('Типы составов', 'types', static fn (Collection $types) => $types
-//                ->implode('name', ', '))
-//                ->hideWhenCreating()
-//                ->hideWhenUpdating()
-//                ->hideFromIndex(),
-//
-//            BelongsToMany::make('Серии составов', 'series', CarriageSeriesNova::class)
-//                ->onlyOnForms(),
-//
-//            Fields\Text::make('Серии составов', 'series', static fn (Collection $series) => $series
-//                ->implode('name', ', '))
-//                ->hideWhenCreating()
-//                ->hideWhenUpdating()
-//                ->hideFromIndex(),
+            Fields\BelongsTo::make('Изделие', 'product', ProductNova::class),
 
             Fields\Hidden::make('Создатель', 'created_by')
                 ->default(function ($request) {

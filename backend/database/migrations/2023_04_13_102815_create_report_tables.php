@@ -132,7 +132,28 @@ return new class extends Migration
         Schema::create('explanatory_notes', function (Blueprint $table) {
             $table->id();
 
+            $table->integer('product_id')
+                ->unsigned();
+            $table->integer('created_by')
+                ->unsigned();
+
             $table->string('name', 255);
+            $table->integer('confidence_probability');
+            $table->dateTime('period_from_date');
+            $table->dateTime('period_to_date');
+
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('users')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->timestamps();
         });
     }
 
